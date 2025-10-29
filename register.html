@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta author="darkProgramador001dat">
+    <title>register</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 270px;
+            opacity: 0.9;
+            border: 1px solid aliceblue;
+            border-radius: 4px;
+            margin: 50px auto auto auto;
+            text-align: center;
+            background-color: aliceblue;
+        }
+        .container form {
+            width: auto;
+            height: 150px;
+            padding: 0;
+            margin: 0;
+        }
+        .container input {
+            display: flex;
+            text-align: center;
+            padding: 0;
+            margin: 0;
+        }
+        .container button {
+            margin: 10px;
+        }
+        .container button:hover {
+            cursor: pointer;
+            background-color: black;
+            color: yellow;
+            border-radius: 4px;
+            border: 1px solid rgba(0, 0, 0, 0.3);
+        }
+        .container h3 {
+            color: rgb(0, 0, 0);
+            margin: auto;
+            padding: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h3>register account</h3>
+        <form action="/register" method="post"> <!-- Aqui é um ponto importante para fazer a ligação do backend com o frontend -->
+            <input style="margin: 10px;" type="text" name="username" placeholder="username" required> <!-- username vai ser enviado -->
+            <input style="margin: 10px;" type="password" name="password" placeholder="password" required> <!-- password vai ser enviado -->
+            <a href="#" target="_blank">
+                <button type="submit">register</button>
+            </a>    
+        </form>
+    </div>
+</body>
+</html>
