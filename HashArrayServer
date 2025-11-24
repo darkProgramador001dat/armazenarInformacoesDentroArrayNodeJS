@@ -1,18 +1,21 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const bcrypt = require('bcrypt');
+const express = require('express');            // Biblioteca para criar um servidor
+const bodyParser = require('body-parser');     // Biblioteca que pega o corpo da requisição(frontend)
+const bcrypt = require('bcrypt');              // Biblioteca para utilizar o metodo de descriptografia ou criptografia.
 
-const app = express();
+const app = express();    // Instancia do servidor.
+
+// Utilizando, recebendo o corpo da requisição(formulario vindo do frontend), Sim.
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(bodyParser.json());  // Converte os dados em JSON
 
+// Lista carregando um Objeto com credencias para o login 200!
 const credentials = [
   { username: 'admin', passwordHashes: '$2b$10$b9RBWc9EJhtpt5rcaQVFQ.ewdxkx6q7l9FMapXSqLV6dUzM4nGCbu' }
 ];
 
 app.get('/', (request, response) => {
   response.statusCode = 200;
-  response.setHeader('Content-Type', 'text/html');
+  response.setHeader('Content-Type', 'text/html');  // Tipo de cabeçalho
   response.send(`
 
   <!DOCYTYPE html>
@@ -36,27 +39,30 @@ app.get('/', (request, response) => {
   `);
 });
 
-app.post('/login', (request, response) => {
-  const { username, password } = request.body;
 
-  const compareCredentials = credentials.find(u => u.username === username)
-  if(compareCredentials)
+// ROTA POST 
+app.post('/login', (request, response) => {
+  const { username, password } = request.body;    // receber os dados do frontend.
+
+  const compareCredentials = credentials.find(u => u.username === username)    // Criando uma instancia e realizando a buscar dentro do Objeto, instanciando uma igualdade da requisiçao e objeto.
+  if(compareCredentials) // Realizando a comparação vinda do frontend com o Objeto
   {
-    bcrypt.compare(password, compareCredentials.passwordHashes, (err, result) => {
-      if(result)
+    bcrypt.compare(password, compareCredentials.passwordHashes, (err, result) => {  
+      if(result)  // Callback de sucesso.
       {
         response.status(200).send('<h2> Login authorized 200! </h2>');
-      } else
+      } else // Senha incorreta.
       {
         response.status(401).send('<h3> username or password invalid </h3>');
       }
     });
-  } else
+  } else  // Nao encontrado no Objeto
   {
     response.status(401).send('<h3> Error in DB_Array not found username </h3>');
   }
 });
 
+// Iniciando o servidor, e vinculando a porta.
 const PORT = 5500;
 app.listen(PORT, () => {
   console.clear();
