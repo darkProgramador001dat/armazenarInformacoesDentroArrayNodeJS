@@ -1,12 +1,13 @@
 const express = require('express');
-const bodyParser = require('body-parser');
+const bodyParser = require('body-parser');    // Biblioteca para realizar parser de formularios.
 
 const app = express();
 
+// Utilizando o metodo, para receber o corpo da requisição, Sim.
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-const users = [{ username: 'darkProgramador', password: '02040801' }];
+const users = [{ username: 'darkProgramador', password: '02040801' }];    // Criando um objeto com as credenciais
 
 app.get('/', (request, response) => {
   response.statusCode = 200;
@@ -32,10 +33,11 @@ app.get('/', (request, response) => {
   `);
 });
 
+// ROTA POST
 app.post('/login', (request, response) => {
-  const { username, password } = request.body;
+  const { username, password } = request.body;  // recebendo o corpo da requisição
 
-  if(username === users[0].username && password === users[0].password)
+  if(username === users[0].username && password === users[0].password)  // Realizando uma igualdade entre a requisição e o indice do objeto
   {
     response.status(200).send(`<h2>Login authorized 200!</h2>`);
   }else
